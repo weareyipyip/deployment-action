@@ -28,8 +28,10 @@ async function run() {
     const autoMergeStringInput = core.getInput("auto_merge", {
       required: false
     });
+    const transientStringInput = core.getInput("transient", {required: false})
 
     const auto_merge: boolean = autoMergeStringInput === "true";
+    const transient_environment: boolean = transientStringInput === "true"
 
     const client = new github.GitHub(token, { previews: ["flash", "ant-man"] });
 
@@ -39,7 +41,7 @@ async function run() {
       ref: ref,
       required_contexts: [],
       environment,
-      transient_environment: true,
+      transient_environment,
       auto_merge,
       description
     });
