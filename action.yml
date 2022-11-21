@@ -29,5 +29,5 @@ outputs:
   deployment_id:
     description: "The ID of the created deployment"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
