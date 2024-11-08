@@ -33,5 +33,5 @@ outputs:
   deployment_id:
     description: "The ID of the created deployment"
 runs:
-  using: "node16"
+  using: "node22"
   main: "dist/index.js"
