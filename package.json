@@ -2,12 +2,16 @@
   "name": "deployment-action",
   "version": "0.1.0",
   "private": true,
-  "description": "JavaScript template action",
+  "description": "Creates GitHub deployments",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
+    "format": "prettier --write '**/*.ts'",
+    "format-check": "prettier --check '**/*.ts'",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build --source-map --license LICENSE",
     "test": "jest",
-    "pack": "ncc build"
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
     "type": "git",
@@ -18,19 +22,24 @@
     "node",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "Chris Norman",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.10.0",
-    "@actions/github": "^1.1.0"
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "@zeit/ncc": "^0.21.1",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.2.0",
-    "jest-circus": "^25.1.0",
-    "typescript": "^3.5.1"
+    "@types/jest": "^29.5.12",
+    "@types/node": "^24.0.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vercel/ncc": "^0.38.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-github": "^4.10.1",
+    "eslint-plugin-jest": "^27.6.3",
+    "jest": "^29.7.0",
+    "jest-circus": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
   }
 }
