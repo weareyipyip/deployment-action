@@ -1,37 +1,77 @@
-name: "Deployment Action"
-description: "Creates a GitHub Deployment"
-author: "chrnorm"
+name: 'Deployment Action'
+description: 'Creates a GitHub Deployment'
+author: 'chrnorm'
 branding:
   icon: arrow-up
-  color: black
+  color: gray-dark
 inputs:
-  initial_status:
-    description: "Initial status for the deployment"
-    default: "pending"
+  repo:
+    description: 'A custom repository to create the deployment for. Defaults to the repo the action is running in.'
     required: false
-  ref:
-    description: "The reference for the deployment"
+  owner:
+    description: 'A custom owner to create the deployment for. Defaults to the repo owner the action is running in.'
+    required: false
+  initial_status:
+    description: 'Initial status for the deployment. Can be one of: error, failure, inactive, in_progress, queued, pending, success'
+    default: 'pending'
     required: false
   token:
-    description: "Github repository token"
+    description: 'Github repository token'
     required: true
-  target_url:
-    description: "Target url location"
+  log_url:
+    description: 'Log URL location'
     required: false
   description:
-    description: "Descriptive message about the deployment"
+    description: 'Descriptive message about the deployment'
     required: false
   environment:
-    description: "The name of the environment for the deployment"
-    default: "production"
+    description: 'The name of the environment for the deployment'
+    default: 'production'
+    required: false
+  environment_url:
+    description: 'A URL to access your deployment'
+    required: false
+  auto_merge:
+    description: Whether to attempt to auto-merge the default branch into the branch that the action is running on if set to "true". More details in the GitHub deployments API. Warning - setting this to "true" has caused this action to fail in some cases
+    required: false
+    default: 'false'
+  ref:
+    description: 'The reference for the deployment'
+    required: false
+  sha:
+    description: 'The commit SHA for the deployment'
+    required: false
+  task:
+    description: The name of the task for the deployment (e.g., deploy or deploy:migrations). More details in the GitHub deployments API.
+    required: false
+    default: 'deploy'
+  required_contexts:
+    description: 'If provided, must be formatted as a comma-separated string. The status contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.'
+    required: false
+  payload:
+    description: JSON payload with extra information about the deployment. Can be provided as a JSON string.
+    required: false
+  production_environment:
+    description: 'Specifies if the given environment is one that end-users directly interact with. Default: true when environment is production and false otherwise.'
+    required: false
+  auto_inactive:
+    description: "Adds a new inactive status to all prior non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment. An inactive status is only added to deployments that had a success state. Default: true"
+    default: 'true'
+    required: false
+  github_base_url:
+    description: 'Changes the API base URL for a GitHub Enterprise server.'
     required: false
   transient:
-    description: "Set transient environment true/false"
+    description: "Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future."
     default: "false"
     required: false
 outputs:
   deployment_id:
-    description: "The ID of the created deployment"
+    description: 'The ID of the created deployment'
+  deployment_url:
+    description: 'The URL of the created deployment'
+  environment_url:
+    description: 'The environment URL of the deployment'
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: node24
+  main: 'dist/index.js'
