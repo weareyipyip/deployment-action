@@ -25,9 +25,9 @@ async function run(): Promise<void> {
       core.getInput('owner', {required: false}) || context.repo.owner
     const repo = core.getInput('repo', {required: false}) || context.repo.repo
 
-    const headRef = process.env.GITHUB_HEAD_REF
+    // We deviate from chrnorm's decision to use GitHub Action's head ref, because that can be an already deleted branch
     const ref =
-      core.getInput('ref', {required: false}) || headRef || context.ref
+      core.getInput('ref', {required: false}) || context.ref
 
     const sha = core.getInput('sha', {required: false}) || context.sha
 
