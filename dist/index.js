@@ -51,8 +51,8 @@ function run() {
             const octokit = github.getOctokit(token, { baseUrl });
             const owner = core.getInput('owner', { required: false }) || context.repo.owner;
             const repo = core.getInput('repo', { required: false }) || context.repo.repo;
-            const headRef = process.env.GITHUB_HEAD_REF;
-            const ref = core.getInput('ref', { required: false }) || headRef || context.ref;
+            // We deviate from chrnorm's decision to use GitHub Action's head ref, because that can be an already deleted branch
+            const ref = core.getInput('ref', { required: false }) || context.ref;
             const sha = core.getInput('sha', { required: false }) || context.sha;
             const logUrl = core.getInput('log_url', { required: false }) || defaultLogUrl;
             const environmentUrl = core.getInput('environment_url', { required: false });
